@@ -248,6 +248,10 @@ def generate_pybind11_bind_code(functions, main_module=MAIN_MODULE_NAME, header_
     # 绑定代码头部
     bind_code = f"""// 自动生成的pybind11绑定代码，请勿手动修改
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+#include <pybind11/complex.h>
+#include <pybind11/functional.h>
+#include <pybind11/chrono.h>
 """
     # 包含目标头文件
     if header_filename:
