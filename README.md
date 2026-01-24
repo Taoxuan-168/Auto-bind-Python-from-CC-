@@ -14,9 +14,10 @@ https://github.com/sipeed/MaixPy/tree/main/components/maix
 ## 快速上手
 
 * 1.克隆本仓库,进入/examples/demo目录
-使用python project menuconfig进入图形界面配置编译工具链以及是打包whl文件
+使用python project.py menuconfig进入图形界面配置编译工具链以及是打包whl文件
+![alt text](./assets/image.png)
 > 其中x86对应为本机编译,arm64对应为MaixCam2编译,RISCV64对应为MaiCam/Pro编译
-
+![alt text](./assets/image-1.png)
 * 2.写一个C/C++函数,以及hpp头文件,需要以whl包为文件名,方便自动识别:
 ```C++
 namespace add::test

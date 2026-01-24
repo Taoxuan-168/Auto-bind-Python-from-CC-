@@ -130,4 +130,4 @@ setup(
 )
 
 
-print(f"\🎉 打包完成,在dist目录下,包名:{PACKAGE_NAME},版本{VERSION}")
+print(f"🎉 打包完成,在dist目录下,包名:{PACKAGE_NAME},版本{VERSION}")

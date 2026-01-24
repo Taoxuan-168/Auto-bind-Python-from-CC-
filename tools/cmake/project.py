@@ -12,6 +12,15 @@ try:
     sdk_path = sdk_path
 except Exception:
     sdk_path = os.path.abspath("../../")
+
+try:
+    # extra_cmake_args from build.py
+    extra_cmake_args = extra_cmake_args
+    print(f"-- [DEBUG] project.py received extra_cmake_args: {extra_cmake_args}")
+except Exception:
+    extra_cmake_args = []
+    print("-- [DEBUG] project.py: extra_cmake_args not found, using empty list")
+
 project_path = sys.path[0]
 project_name = ""
 project_cmake_path = project_path+"/CMakeLists.txt"
@@ -208,6 +217,13 @@ elif project_args.cmd == "build" or project_args.cmd == "rebuild":
                                "-DDEFAULT_CONFIG_FILE={}".format(config_path),  ".."]
         if custom_components_path:
             cmd.insert(4, "-DCUSTOM_COMPONENTS_PATH={}".format(custom_components_path))
+        # 添加额外的 cmake 参数（如平台变量 -DLinux=ON, -DMaixCam2=ON 等）
+        print(f"-- [DEBUG] Before adding extra_cmake_args: {cmd}")
+        print(f"-- [DEBUG] extra_cmake_args value: {extra_cmake_args}")
+        if extra_cmake_args:
+            for arg in extra_cmake_args:
+                cmd.insert(-1, arg)
+        print(f"-- [DEBUG] Final cmake command: {' '.join(cmd)}")
         res = subprocess.call(cmd)
         if res != 0:
             exit(1)
@@ -247,6 +263,7 @@ elif project_args.cmd == "distclean":
     # 定义要保留的文件路径
     global_config_file = os.path.join(project_path, "build", "config", "global_config.mk")
     global_config_backup = None
+    global_config_backup_path = None
     
     # 1. 先备份 global_config.mk（如果存在）
     if os.path.exists(global_config_file):

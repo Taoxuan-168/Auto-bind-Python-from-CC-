@@ -13,18 +13,26 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 # ==========================================================
 
-#################自动获取当前Python路径（虚拟环境优先）#################
-execute_process(COMMAND python3 -c "import sys; print(sys.executable)" OUTPUT_VARIABLE Python3_EXECUTABLE OUTPUT_STRIP_TRAILING_WHITESPACE)
+if(Linux)
+    ################# Linux #################
+    execute_process(COMMAND python3 -c "import sys; print(sys.executable)" OUTPUT_VARIABLE Python3_EXECUTABLE OUTPUT_STRIP_TRAILING_WHITESPACE)
+    find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+    list(APPEND ADD_INCLUDE ${Python3_INCLUDE_DIRS})
+    list(APPEND ADD_LINK_SEARCH_PATH ${Python3_LIBRARY_DIRS})
 
-############ find Python3 and pybind11 #################
-find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
-find_package(pybind11 REQUIRED)
-list(APPEND ADD_INCLUDE ${Python3_INCLUDE_DIRS})
-list(APPEND ADD_LINK_SEARCH_PATH ${Python3_LIBRARY_DIRS})
+    list(APPEND ADD_REQUIREMENTS ${Python3_LIBRARIES})
 
+elseif(MaixCam)
+    ################# MaixCam #################
+    list(APPEND ADD_REQUIREMENTS python3_lib_maixcam_musl_3.11.6)
+
+elseif(MaixCam2)
+    ################ MaixCam2 #################
+    list(APPEND ADD_REQUIREMENTS python3.13_maixcam2)
+endif()
 
 ###### Add required/dependent components ######
-list(APPEND ADD_REQUIREMENTS ${Python3_LIBRARIES} pybind11::module)
+list(APPEND ADD_REQUIREMENTS pybind11)
 
 # if(CONFIG_COMPONENT1_ENABLED)
 #     list(APPEND ADD_REQUIREMENTS component2)
