@@ -50,3 +50,6 @@ namespace add::test
 import add
 add.test.add(1,1)
 ```
+注意:
+-   一个头文件代表一个模块名,表示要import的模块,例如add.hpp对应import add,其模块名必须以add开头
+-   直接运行cpp_bind_python.py可以只生成绑定后的cpp文件,添加--doc DOC参数可以自动从注释生成文档

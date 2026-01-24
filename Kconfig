@@ -12,17 +12,17 @@ menu "Toolchain configuration"
             The corresponding toolchain parameters will be automatically applied.
 
         config TARGET_ARCH_X86
-            bool "x86_64"
+            bool "x86_64(Linux)"
             help
                 Compile project for x86 architecture, use x86 toolchain parameters.
 
         config TARGET_ARCH_ARM64
-            bool "ARM64 (AArch64)"
+            bool "AArch64 (MaixCam2)"
             help
                 Compile project for ARM64 architecture, use ARM64 toolchain parameters.
 
         config TARGET_ARCH_RISCV64
-            bool "RISCV64"
+            bool "RISCV64 (MaixCam/Pro)"
             help
                 Compile project for RISCV64 architecture, use RISCV64 toolchain parameters.
                 Support both Glibc and Musl toolchains (configure in prefix/path).
